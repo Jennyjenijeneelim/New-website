@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 — Paper Garden</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f8f4ed;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Gill Sans', 'Gill Sans MT', Optima, Calibri, sans-serif;
+    }
+
+    /* ── Stage ── */
+    .stage {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stage-bg {
+      position: absolute;
+      inset: 0;
+      background: #f8f4ed;
+    }
+
+    .stage-floor {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to bottom, #ede5d8, #ddd0be);
+    }
+
+    /* ── Apple ── */
+    .apple-wrap {
+      position: relative;
+      z-index: 5;
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 0.8s ease 0.1s, transform 0.8s cubic-bezier(0.34,1.2,0.64,1) 0.1s;
+    }
+    .apple-wrap.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ── Stage title ── */
+    .stage-title {
+      position: absolute;
+      bottom: 9%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      font-size: 13px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #1a2a10;
+      opacity: 0;
+      transition: opacity 1s ease 0.2s;
+      white-space: nowrap;
+    }
+    .stage-title.show { opacity: 0.6; }
+
+    /* ── Back link ── */
+    .back-link {
+      position: fixed;
+      top: 26px;
+      left: 32px;
+      z-index: 200;
+      font-family: 'Gill Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(26,42,16,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: #1a2a10; }
+    .back-link::before { content: '← '; }
+
+    /* ── Vine curtains ── */
+    .vines {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .curtain {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 55vw;
+      will-change: transform;
+      transition: transform 1.0s ease;
+    }
+    .curtain-left  { left: 0; }
+    .curtain-right { right: 0; }
+
+    .vines.open .curtain-left  { transform: translateX(-100%); }
+    .vines.open .curtain-right { transform: translateX(100%); }
+  </style>
+</head>
+<body>
+
+  <a class="back-link" href="explorations.html">All Explorations</a>
+
+  <!-- Stage -->
+  <div class="stage">
+    <div class="stage-bg"></div>
+    <div class="stage-floor"></div>
+
+    <div class="apple-wrap">
+      <svg viewBox="0 0 200 230" width="280" height="322" style="filter: drop-shadow(0 12px 28px rgba(0,60,0,0.15))">
+        <defs>
+          <radialGradient id="ag3" cx="38%" cy="32%" r="68%">
+            <stop offset="0%" stop-color="#c8e8b0"/>
+            <stop offset="45%" stop-color="#8ec870"/>
+            <stop offset="100%" stop-color="#5a9040"/>
+          </radialGradient>
+        </defs>
+        <path d="M100,68 C100,54 86,46 76,50 C64,55 62,68 68,78 C55,80 43,94 39,114 C35,132 37,155 44,173 C53,198 70,218 90,226 C96,228 100,229 100,229 C100,229 104,228 110,226 C130,218 147,198 156,173 C163,155 165,132 161,114 C157,94 145,80 132,78 C138,68 136,55 124,50 C114,46 100,54 100,68Z" fill="url(#ag3)" stroke="#3a6020" stroke-width="1"/>
+        <ellipse cx="73" cy="108" rx="18" ry="10" fill="rgba(255,255,255,0.35)" transform="rotate(-30 73 108)"/>
+        <path d="M100,68 C100,52 113,37 120,26" stroke="#5a3820" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M116,40 C128,26 146,34 138,49 C131,60 118,52 116,40Z" fill="none" stroke="#2d5a18" stroke-width="1.2"/>
+        <line x1="116" y1="40" x2="138" y2="49" stroke="#2d5a18" stroke-width="1.0"/>
+        <path d="M100,68 C100,100 100,160 100,229" stroke="rgba(0,0,0,0.08)" stroke-width="1.2" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="stage-title">Paper Garden</div>
+  </div>
+
+  <!-- Vine curtains -->
+  <div class="vines">
+
+    <!-- Left curtain -->
+    <div class="curtain curtain-left">
+      <svg width="100%" height="100%" viewBox="0 0 550 1000" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ghost body — nearly transparent fill -->
+        <path d="M0,0 L460,0 Q455,25 465,50 Q458,80 468,115 Q460,155 470,200 Q462,250 472,305 Q464,362 474,422 Q466,484 476,548 Q468,612 478,678 Q470,744 480,810 L480,1000 L0,1000 Z" fill="#2d5a18" fill-opacity="0.08"/>
+        <!-- Tendril strokes — line art only -->
+        <path d="M462,0 C472,52 484,108 470,162 C458,212 470,258 456,312 C444,362 458,408 444,462 C432,512 446,558 432,615" stroke="#2d5a18" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M476,0 C486,42 496,86 482,134 C470,178 482,218 468,266 C456,311 470,352 456,402" stroke="#3a7020" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M470,140 C482,185 494,234 480,282 C468,326 480,368 466,416 C454,460 468,502 454,552" stroke="#2d5a18" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M474,320 C486,366 498,415 484,462 C472,506 484,548 470,598" stroke="#3a7020" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M478,520 C490,566 500,614 486,662 C474,705 486,745 472,792" stroke="#2d5a18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- Leaves — outline only, no fill -->
+        <ellipse cx="476" cy="28"  rx="17" ry="8" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(42 476 28)"/>
+        <ellipse cx="487" cy="65"  rx="19" ry="9" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-28 487 65)"/>
+        <ellipse cx="472" cy="108" rx="17" ry="8" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(52 472 108)"/>
+        <ellipse cx="466" cy="156" rx="16" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-22 466 156)"/>
+        <ellipse cx="474" cy="208" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(36 474 208)"/>
+        <ellipse cx="460" cy="262" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-42 460 262)"/>
+        <ellipse cx="466" cy="318" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(27 466 318)"/>
+        <ellipse cx="452" cy="378" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-32 452 378)"/>
+        <ellipse cx="490" cy="42"  rx="15" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-27 490 42)"/>
+        <ellipse cx="486" cy="92"  rx="16" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(46 486 92)"/>
+        <ellipse cx="474" cy="148" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-36 474 148)"/>
+        <ellipse cx="494" cy="176" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(31 494 176)"/>
+        <ellipse cx="488" cy="230" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-38 488 230)"/>
+        <ellipse cx="480" cy="290" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(22 480 290)"/>
+        <ellipse cx="472" cy="352" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-27 472 352)"/>
+        <ellipse cx="478" cy="415" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(39 478 415)"/>
+        <ellipse cx="494" cy="345" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-32 494 345)"/>
+        <ellipse cx="488" cy="400" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(41 488 400)"/>
+        <ellipse cx="480" cy="460" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-22 480 460)"/>
+        <ellipse cx="492" cy="548" rx="12" ry="5" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(28 492 548)"/>
+        <ellipse cx="485" cy="608" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-35 485 608)"/>
+        <ellipse cx="477" cy="668" rx="12" ry="5" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(20 477 668)"/>
+      </svg>
+    </div>
+
+    <!-- Right curtain (mirrored) -->
+    <div class="curtain curtain-right">
+      <svg width="100%" height="100%" viewBox="0 0 550 1000" preserveAspectRatio="xMinYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <g transform="scale(-1,1) translate(-550,0)">
+          <path d="M0,0 L460,0 Q455,25 465,50 Q458,80 468,115 Q460,155 470,200 Q462,250 472,305 Q464,362 474,422 Q466,484 476,548 Q468,612 478,678 Q470,744 480,810 L480,1000 L0,1000 Z" fill="#2d5a18" fill-opacity="0.08"/>
+          <path d="M462,0 C472,52 484,108 470,162 C458,212 470,258 456,312 C444,362 458,408 444,462 C432,512 446,558 432,615" stroke="#2d5a18" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M476,0 C486,42 496,86 482,134 C470,178 482,218 468,266 C456,311 470,352 456,402" stroke="#3a7020" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M470,140 C482,185 494,234 480,282 C468,326 480,368 466,416 C454,460 468,502 454,552" stroke="#2d5a18" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M474,320 C486,366 498,415 484,462 C472,506 484,548 470,598" stroke="#3a7020" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M478,520 C490,566 500,614 486,662 C474,705 486,745 472,792" stroke="#2d5a18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="476" cy="28"  rx="17" ry="8" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(42 476 28)"/>
+          <ellipse cx="487" cy="65"  rx="19" ry="9" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-28 487 65)"/>
+          <ellipse cx="472" cy="108" rx="17" ry="8" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(52 472 108)"/>
+          <ellipse cx="466" cy="156" rx="16" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-22 466 156)"/>
+          <ellipse cx="474" cy="208" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(36 474 208)"/>
+          <ellipse cx="460" cy="262" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-42 460 262)"/>
+          <ellipse cx="466" cy="318" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(27 466 318)"/>
+          <ellipse cx="452" cy="378" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-32 452 378)"/>
+          <ellipse cx="490" cy="42"  rx="15" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-27 490 42)"/>
+          <ellipse cx="486" cy="92"  rx="16" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(46 486 92)"/>
+          <ellipse cx="474" cy="148" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-36 474 148)"/>
+          <ellipse cx="494" cy="176" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(31 494 176)"/>
+          <ellipse cx="488" cy="230" rx="15" ry="7" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-38 488 230)"/>
+          <ellipse cx="480" cy="290" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(22 480 290)"/>
+          <ellipse cx="472" cy="352" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-27 472 352)"/>
+          <ellipse cx="478" cy="415" rx="14" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(39 478 415)"/>
+          <ellipse cx="494" cy="345" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-32 494 345)"/>
+          <ellipse cx="488" cy="400" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(41 488 400)"/>
+          <ellipse cx="480" cy="460" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-22 480 460)"/>
+          <ellipse cx="492" cy="548" rx="12" ry="5" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(28 492 548)"/>
+          <ellipse cx="485" cy="608" rx="13" ry="6" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(-35 485 608)"/>
+          <ellipse cx="477" cy="668" rx="12" ry="5" fill="transparent" stroke="#2d5a18" stroke-width="1.5" transform="rotate(20 477 668)"/>
+        </g>
+      </svg>
+    </div>
+
+  </div><!-- /.vines -->
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.vines').classList.add('open');
+        setTimeout(() => {
+          document.querySelector('.apple-wrap').classList.add('show');
+          document.querySelector('.stage-title').classList.add('show');
+        }, 600);
+      }, 900);
+    });
+  </script>
+</body>
+</html>
