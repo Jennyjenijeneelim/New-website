@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Website</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">My Website</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Hello, I'm <span class="highlight">Jenny</span></h1>
+        <p class="tagline">Building things for the web.</p>
+        <a href="#work" class="btn">See My Work</a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About</h2>
+        <p>
+          Welcome to my corner of the internet. I'm passionate about creating
+          beautiful, functional experiences on the web. This is where I share
+          my projects, thoughts, and everything I'm working on.
+        </p>
+      </div>
+    </section>
+
+    <section id="work" class="section section-alt">
+      <div class="container">
+        <h2>Work</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">&#128187;</div>
+            <h3>Project One</h3>
+            <p>A short description of this project and what makes it interesting.</p>
+            <a href="#" class="card-link">View &rarr;</a>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#127775;</div>
+            <h3>Project Two</h3>
+            <p>A short description of this project and what makes it interesting.</p>
+            <a href="#" class="card-link">View &rarr;</a>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128640;</div>
+            <h3>Project Three</h3>
+            <p>A short description of this project and what makes it interesting.</p>
+            <a href="#" class="card-link">View &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p>Have a project in mind or just want to say hello? I'd love to hear from you.</p>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+          <p class="form-status" id="formStatus"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Jenny. Made with care.</p>
+      <div class="social-links">
+        <a href="https://github.com/jennyjenijeneelim" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
