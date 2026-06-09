@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorations — Vine Curtain Cinema</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a0a1e;
+      color: #e8ddf0;
+      font-family: Georgia, 'Times New Roman', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 24px 80px;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 28px;
+      left: 36px;
+      font-family: 'Gill Sans', Optima, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9080a0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: #d4c8f0; }
+    .back-link::before { content: '← '; }
+
+    header {
+      margin-bottom: 72px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-family: 'Gill Sans', Optima, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #7a6890;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #f0e8ff;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin-top: 16px;
+      font-family: 'Gill Sans', Optima, sans-serif;
+      font-size: 15px;
+      color: #7a6890;
+      letter-spacing: 0.06em;
+    }
+
+    .divider {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, #5a4070, transparent);
+      margin: 0 auto 72px;
+    }
+
+    .exploration-list {
+      width: 100%;
+      max-width: 780px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .exploration-item {
+      display: block;
+      text-decoration: none;
+      padding: 32px 0;
+      border-top: 1px solid rgba(120, 80, 160, 0.18);
+      position: relative;
+      overflow: hidden;
+      transition: padding-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .exploration-item:last-child { border-bottom: 1px solid rgba(120, 80, 160, 0.18); }
+
+    .exploration-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .exploration-item:hover { padding-left: 20px; }
+    .exploration-item:hover::before { width: 3px; }
+
+    .item-e1:hover::before { background: #4a9030; }
+    .item-e2:hover::before { background: #9060d0; }
+    .item-e3:hover::before { background: #3a7020; }
+    .item-e4:hover::before { background: #4080c0; }
+    .item-e5:hover::before { background: #00ff60; }
+
+    .item-inner {
+      display: flex;
+      align-items: baseline;
+      gap: 28px;
+    }
+
+    .item-number {
+      font-family: 'Gill Sans', Optima, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: #5a4070;
+      flex-shrink: 0;
+      width: 28px;
+      transition: color 0.3s;
+    }
+
+    .item-content {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 400;
+      color: #e8ddf0;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      transition: color 0.3s;
+    }
+
+    .item-desc {
+      margin-top: 6px;
+      font-family: 'Gill Sans', Optima, sans-serif;
+      font-size: 13px;
+      color: #7a6890;
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+
+    .item-arrow {
+      font-size: 20px;
+      color: #3a2850;
+      flex-shrink: 0;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .exploration-item:hover .item-number { color: #9070b0; }
+    .exploration-item:hover .item-arrow { transform: translateX(6px); }
+
+    .item-e1:hover .item-title { color: #8ec868; }
+    .item-e1:hover .item-arrow { color: #4a9030; }
+    .item-e1:hover .item-desc { color: #6a9050; }
+
+    .item-e2:hover .item-title { color: #c8b0f0; }
+    .item-e2:hover .item-arrow { color: #9060d0; }
+    .item-e2:hover .item-desc { color: #9080c0; }
+
+    .item-e3:hover .item-title { color: #8ac870; }
+    .item-e3:hover .item-arrow { color: #3a7020; }
+    .item-e3:hover .item-desc { color: #507040; }
+
+    .item-e4:hover .item-title { color: #a0c8f0; }
+    .item-e4:hover .item-arrow { color: #4080c0; }
+    .item-e4:hover .item-desc { color: #6090b0; }
+
+    .item-e5:hover .item-title { color: #00ff60; }
+    .item-e5:hover .item-arrow { color: #00dd55; }
+    .item-e5:hover .item-desc { color: #00aa40; }
+
+    footer {
+      margin-top: 80px;
+      font-family: 'Gill Sans', Optima, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #3a2850;
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="index.html">Home</a>
+
+  <header>
+    <p class="eyebrow">Vine Curtain Cinema</p>
+    <h1>Explorations</h1>
+    <p class="subtitle">Five visual takes on a curtain reveal</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <nav class="exploration-list" aria-label="Explorations">
+
+    <a class="exploration-item item-e1" href="exploration-1.html">
+      <div class="item-inner">
+        <span class="item-number">01</span>
+        <div class="item-content">
+          <div class="item-title">The Garden Theater</div>
+          <div class="item-desc">Dense forest, warm amber glow</div>
+        </div>
+        <span class="item-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="exploration-item item-e2" href="exploration-2.html">
+      <div class="item-inner">
+        <span class="item-number">02</span>
+        <div class="item-content">
+          <div class="item-title">Velvet Bower</div>
+          <div class="item-desc">Deep purple, firefly whispers</div>
+        </div>
+        <span class="item-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="exploration-item item-e3" href="exploration-3.html">
+      <div class="item-inner">
+        <span class="item-number">03</span>
+        <div class="item-content">
+          <div class="item-title">Paper Garden</div>
+          <div class="item-desc">Line art, clean and minimal</div>
+        </div>
+        <span class="item-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="exploration-item item-e4" href="exploration-4.html">
+      <div class="item-inner">
+        <span class="item-number">04</span>
+        <div class="item-content">
+          <div class="item-title">Moonlit Grove</div>
+          <div class="item-desc">Starlit, dreamy reveal</div>
+        </div>
+        <span class="item-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="exploration-item item-e5" href="exploration-5.html">
+      <div class="item-inner">
+        <span class="item-number">05</span>
+        <div class="item-content">
+          <div class="item-title">Electric Jungle</div>
+          <div class="item-desc">Neon vines, instant snap</div>
+        </div>
+        <span class="item-arrow">→</span>
+      </div>
+    </a>
+
+  </nav>
+
+  <footer>Five scenes &mdash; one apple</footer>
+</body>
+</html>
